@@ -41,7 +41,21 @@ dependencies:
   date_format:
   provider:
   connectivity_plus: ^3.0.2
-  http: 
+  http:
+  stack: ^0.2.1
+  firebase_core:
+  firebase_auth:
+  cloud_firestore:
+  firebase_storage:
+  firebase_messaging:
+  flutter_easyloading: ^3.0.5
+  loading_indicator: ^3.1.0
+  geolocator: ^8.0.0
+  google_maps_flutter: ^2.2.3
+  geocoding: ^2.0.5
+  flutter_toolbar: ^0.0.2
+  flutter_polyline_points: ^1.0.0
+
 
 dev_dependencies:
   flutter_test:

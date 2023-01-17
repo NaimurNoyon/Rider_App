@@ -23,6 +23,17 @@ class _SecondPageState extends State<SecondPage> {
   ];
 
   @override
+  void initState() {
+    getData()async{
+      listOrder = await repository.getData();
+      setState(() {
+        loading = false;
+
+      });
+    }
+    super.initState();
+  }
+  @override
   Widget build(BuildContext context) {
     double scheight= MediaQuery.of(context).size.height;
     double scwidth= MediaQuery.of(context).size.width;
@@ -82,46 +93,49 @@ class _SecondPageState extends State<SecondPage> {
         Center(
           child: widgetList[pageIndex],
         ): Center(
-          child: Stack(
-            children: [
-              Image.asset('images/rider.jpg',height: scheight,width: scwidth,fit: BoxFit.cover,),
-              Positioned(
-                  bottom: scheight-700,
-                  left: scwidth-320,
-                  child: Column(
-                    children: [
-                      Text('You Are Offline Now!',style: TextStyle(color: Colors.white,fontSize: 20,fontWeight: FontWeight.bold),),
-                      SizedBox(height: 20,),
-                      Text('Go online, accept your orders and make',style: TextStyle(color: Colors.white,fontSize: 15)),
-                      SizedBox(height: 5,),
-                      Text('customer happy with your service',style: TextStyle(color: Colors.white,fontSize: 15)),
-                    ],
-                  )
-              ),
-              Positioned(
-                  bottom:20,
-                  left: 15,
-                  child: SizedBox(
-                    width: scwidth-30,
-                    height: 45,
-                    child: ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                        primary: firstbuttoncolor,
-                        shape: RoundedRectangleBorder(
-                          borderRadius:
-                          BorderRadius.circular(8), // <-- Radius
+          child: Center(
+            child: Stack(
+              children: [
+                Image.asset('images/nointernet.PNG',height: scheight,width: scwidth,fit: BoxFit.contain,),
+                Positioned(
+                    bottom: scheight-700,
+                    left: scwidth-320,
+                    child: Column(
+                      children: [
+                        Text('You Are Offline Now!',style: TextStyle(color: orangetextcol,fontSize: 20,fontWeight: FontWeight.bold),),
+                        SizedBox(height: 20,),
+                        Text('Go online, accept your orders and make',style: TextStyle(color: orangetextcol,fontSize: 15)),
+                        SizedBox(height: 5,),
+                      ],
+                    )
+                ),
+                Positioned(
+                    bottom:20,
+                    left: 15,
+                    child: SizedBox(
+                      width: scwidth-30,
+                      height: 45,
+                      child: ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          primary: firstbuttoncolor,
+                          shape: RoundedRectangleBorder(
+                            borderRadius:
+                            BorderRadius.circular(8), // <-- Radius
+                          ),
                         ),
+                        onPressed: (){
+                          Navigator.pushReplacementNamed(context, SecondPage.routeName);
+                        },
+                        child: Text('Go Online',style: TextStyle(fontSize: 20),),
                       ),
-                      onPressed: (){
-                        Navigator.pushReplacementNamed(context, SecondPage.routeName);
-                      },
-                      child: Text('Go Online',style: TextStyle(fontSize: 20),),
-                    ),
-                  )
-              )
-            ],
+                    )
+                )
+              ],
+            ),
           ),
-        ):Text('Error');
+        ):Center(
+          child: widgetList[pageIndex],
+        );
       },)
     );
   }

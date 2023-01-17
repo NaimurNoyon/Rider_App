@@ -7,7 +7,7 @@ import 'package:riderapp/pages/secondpage.dart';
 import '../utils/colors.dart';
 
 class FirstPage extends StatefulWidget {
-  static const String routeName='/';
+  static const String routeName='/firstpage';
   const FirstPage({Key? key}) : super(key: key);
 
   @override
@@ -37,17 +37,16 @@ class _FirstPageState extends State<FirstPage> {
       body: Center(
         child: Stack(
           children: [
-            Image.asset('images/rider.jpg',height: scheight,width: scwidth,fit: BoxFit.contain,),
+            Image.asset('images/nointernet.PNG',height: scheight,width: scwidth,fit: BoxFit.contain,),
             Positioned(
               bottom: scheight-700,
                 left: scwidth-320,
                 child: Column(
                   children: [
-                    Text('You Are Offline Now!',style: TextStyle(color: Colors.white,fontSize: 20,fontWeight: FontWeight.bold),),
+                    Text('You Are Offline Now!',style: TextStyle(color: orangetextcol,fontSize: 20,fontWeight: FontWeight.bold),),
                     SizedBox(height: 20,),
-                    Text('Go online, accept your orders and make',style: TextStyle(color: Colors.white,fontSize: 15)),
+                    Text('Go online, accept your orders and make',style: TextStyle(color: orangetextcol,fontSize: 15)),
                     SizedBox(height: 5,),
-                    Text('customer happy with your service',style: TextStyle(color: Colors.white,fontSize: 15)),
                   ],
                 )
             ),

@@ -30,7 +30,7 @@ import 'package:http/http.dart' as http;
 
 
 class Repository {
-  String uri = "https://mocki.io/v1/6937e104-f1cd-4a06-9b7b-b05513d736f4";
+  String uri = "https://mocki.io/v1/5a315c43-02ca-45ac-99c1-fd479c47a336";
 
   Future getData() async {
     try{
@@ -48,7 +48,7 @@ class Repository {
     }
   }
 
-  /*Future updatePage(String id, String Bool) async {
+/*Future updatePage(String id, String Bool) async {
 
     try{
       final response = await http.put(Uri.parse('$uri/$id'), body: {

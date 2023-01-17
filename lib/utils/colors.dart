@@ -5,3 +5,7 @@ const Color firstbuttoncolor = Color(0xFFF1BE6C);
 const Color backgroundwhite= Color(0xFFF5F5F2);
 const Color acceptbutcol= Color(0xFF01B075);
 const Color declinebutcol= Color(0xFFFD476D);
+const Color orangetextcol=Color(0xFFFF745C);
+const Color logoblue=Color(0xFF53BDE7);
+const Color logogold=Color(0xFFEFBE35);
+
