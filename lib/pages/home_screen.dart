@@ -1,9 +1,12 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:riderapp/pages/Provider/orderproviderpage.dart';
 import 'package:riderapp/pages/google_map.dart';
 import 'package:riderapp/utils/colors.dart';
 import 'Models/tempmodel.dart';
+import 'package:http/http.dart' as http;
 
 class HomeScreen extends StatefulWidget {
   static const String routeName='/homepage';
@@ -18,26 +21,25 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
   TextEditingController dateController = TextEditingController();
   bool _switchValue = true;
   late TabController _tabController;
-  List<TempModel> articles= [];
-  List<TempModel> favoriteDataList = [];
+  List<Order> favoriteDataList = [];
   bool loading=true;
-  bool accepted = true;
   String? date;
+  Repository repository = Repository();
+  List<Order> listOrder = [];
 
   @override
   void initState() {
     dateController.text = '';
-    getNews();
+    getData();
     date = DateFormat('dd MMM yyyy').format(DateTime.now());
     super.initState();
   }
-  getNews()async{
-    TechNews news= TechNews();
-    await news.getnews();
-    articles=news.techNews;
-    setState(() {
-      loading=false;
-    });
+  getData()async{
+      listOrder = await repository.getData();
+      setState(() {
+        loading = false;
+
+      });
   }
 
   @override
@@ -109,7 +111,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                 controller: _tabController,
                 children: [
                   ListView.builder(
-                      itemCount: articles.length,
+                      itemCount: listOrder.length,
                       itemBuilder:(context, index){
                         return Column(
                             children: [
@@ -141,7 +143,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                                               Row(
                                                 children: [
                                                   Icon(Icons.location_pin),
-                                                  Expanded(child: Text('${articles[index].storeAddress}',style: TextStyle(fontSize: 20),))
+                                                  Expanded(child: Text('${listOrder[index].Shopadress}',style: TextStyle(fontSize: 20),))
                                                 ],
                                               ),
                                               SizedBox(height: 10,),
@@ -149,7 +151,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                                               Row(
                                                 children: [
                                                   Icon(Icons.location_pin),
-                                                  Expanded(child: Text(('${articles[index].userAddress}'),style: TextStyle(fontSize: 20),))
+                                                  Expanded(child: Text(('${listOrder[index].Useradress}'),style: TextStyle(fontSize: 20),))
 
                                                 ],
                                               )
@@ -177,7 +179,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                                                 Row(
                                                   children: [
                                                     Icon(Icons.access_time),
-                                                    Text('${articles[index].pickUpTime}',style: TextStyle(fontSize:20,color: Colors.black))
+                                                    Text('${listOrder[index].Pickuptime}',style: TextStyle(fontSize:20,color: Colors.black))
                                                   ],
                                                 )
                                               ],
@@ -190,7 +192,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                                                 Row(
                                                   children: [
                                                     Icon(Icons.access_time),
-                                                    Text('${articles[index].deliveryTime}',style: TextStyle(fontSize:20,color: Colors.black))
+                                                    Text('${listOrder[index].Deliverytime}',style: TextStyle(fontSize:20,color: Colors.black))
                                                   ],
                                                 )
                                               ],
@@ -205,14 +207,11 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                                           mainAxisSize: MainAxisSize.min,
                                           crossAxisAlignment: CrossAxisAlignment.center,
                                           children: [
-                                            Text('Approx: '),
-                                            Text('${articles[index].distance}',style: TextStyle(fontWeight: FontWeight.bold),),
-                                            SizedBox(width: 50,),
+                                            const Text('Approx: '),
+                                            Text('${listOrder[index].Bool}',style: TextStyle(fontWeight: FontWeight.bold),),
+                                            const SizedBox(width: 50,),
 
-
-
-
-                                            articles[index].accept=='true'?
+                                            listOrder[index].Bool=='true'?
                                             ElevatedButton(
                                               style: ElevatedButton.styleFrom(
                                                 primary: acceptbutcol,
@@ -222,14 +221,13 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                                                 ),
                                               ),
 
-
                                               onPressed: (){
                                                 setState(() {
-                                                  favoriteDataList.add(articles[index]);
-                                                  articles[index].accept = 'false';
+                                                  favoriteDataList.add(listOrder[index]);
+                                                  listOrder[index].Bool ='false';
                                                 });
-                                              },
 
+                                              },
 
                                               child: Text('ACCEPT',style: TextStyle(fontSize: 17),),
                                             ):
@@ -293,7 +291,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                                             Row(
                                               children: [
                                                 Icon(Icons.location_pin),
-                                                Expanded(child: Text('${articles[index].storeAddress}',style: TextStyle(fontSize: 20),))
+                                                Expanded(child: Text('${listOrder[index].Shopadress}',style: TextStyle(fontSize: 20),))
                                               ],
                                             ),
                                             SizedBox(height: 10,),
